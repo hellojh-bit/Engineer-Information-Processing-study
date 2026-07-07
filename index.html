@@ -908,7 +908,7 @@
         /* [추가] AI 예상문제 통합 화면 스타일 끝 */
 
 
-        /* [수정] 최종암기요약 탭/카드 표시 안정화 */
+        /* [수정] 카드 요약 참고용 탭/카드 표시 안정화 */
         .summary-tab.active {
             background: #4f46e5 !important;
             color: #ffffff !important;
@@ -1841,7 +1841,7 @@
 <span class="text-sm">🛡️</span>
 <span class="text-left">침해 공격 유형</span>
 </div>
-<span class="text-[9px] bg-slate-200 text-slate-600 px-1.5 py-0.5 rounded" id="badge-ATTACK">38</span>
+<span class="text-[9px] bg-slate-200 text-slate-600 px-1.5 py-0.5 rounded" id="badge-ATTACK">40</span>
 </button>
 <!-- Item: Protocol -->
 <button class="flex items-center justify-between px-3 py-2.5 rounded-xl text-xs font-bold transition-all text-slate-600 hover:bg-slate-100 hover:text-slate-900" id="dir-PROTOCOL" onclick="changeSubject('PROTOCOL')">
@@ -1938,13 +1938,7 @@
 <span class="text-base">🏆</span>
 <span>최종 카드 암기</span>
 </div>
-<span class="bg-indigo-100 text-indigo-700 text-[10px] px-1.5 py-0.5 rounded-md font-mono" id="badge-FINAL_CARD">107</span>
-</button>
-<button class="w-full flex items-center justify-between px-3 py-2 text-xs font-bold rounded-xl transition-all text-slate-600 hover:bg-slate-100 mb-1" id="dir-FINAL_SUMMARY" onclick="changeSubject('FINAL_SUMMARY')">
-<div class="flex items-center gap-2">
-<span class="text-base">📝</span>
-<span>최종암기요약</span>
-</div>
+<span class="bg-indigo-100 text-indigo-700 text-[10px] px-1.5 py-0.5 rounded-md font-mono" id="badge-FINAL_CARD">253</span>
 </button>
 <button class="w-full flex items-center justify-between px-3 py-2 text-xs font-bold rounded-xl transition-all text-slate-600 hover:bg-slate-100" id="dir-FINAL_QUESTIONS" onclick="changeSubject('FINAL_QUESTIONS')">
 <div class="flex items-center gap-2">
@@ -1952,6 +1946,22 @@
 <span>최종 암기 문제</span>
 </div>
 <span class="bg-rose-100 text-rose-700 text-[10px] px-1.5 py-0.5 rounded-md font-extrabold" id="badge-FINAL_QUESTIONS">문제</span>
+</button>
+</div>
+<div class="pt-4 mt-4 border-t border-slate-200">
+<span class="px-3 text-[10px] font-black text-slate-400 tracking-wider uppercase block mb-2">참고</span>
+<button class="w-full flex items-center justify-between px-3 py-2 text-xs font-bold rounded-xl transition-all text-slate-600 hover:bg-slate-100 mb-1" id="dir-FINAL_CARD_REF" onclick="changeSubject('FINAL_CARD_REF')">
+<div class="flex items-center gap-2">
+<span class="text-base">📚</span>
+<span>카드 암기 참고용</span>
+</div>
+<span class="bg-indigo-100 text-indigo-700 text-[10px] px-1.5 py-0.5 rounded-md font-mono" id="badge-FINAL_CARD_REF">107</span>
+</button>
+<button class="w-full flex items-center justify-between px-3 py-2 text-xs font-bold rounded-xl transition-all text-slate-600 hover:bg-slate-100" id="dir-FINAL_SUMMARY" onclick="changeSubject('FINAL_SUMMARY')">
+<div class="flex items-center gap-2">
+<span class="text-base">📝</span>
+<span>카드 요약 참고용</span>
+</div>
 </button>
 </div>
 </nav>
@@ -2057,6 +2067,24 @@
 <span>/</span>
 <span class="text-slate-500" id="totalFilteredCards">0</span>
 </div>
+<!-- [추가] 최종 카드 암기 다시보기 저장소 컨트롤 -->
+<div class="hidden w-full max-w-lg flex flex-col gap-2 -mt-2" id="finalCardReviewToolbar">
+<div class="flex flex-wrap items-center justify-center gap-2">
+<button class="inline-flex items-center justify-center gap-1.5 px-4 py-2.5 text-xs font-extrabold text-indigo-700 bg-indigo-50 hover:bg-indigo-100 rounded-xl border border-indigo-100 transition-all shadow-sm active:scale-[0.98]" id="finalCardReviewOpenBtn" onclick="openFinalCardReview()" type="button">
+<span>다시보기</span>
+<span class="min-w-[1.35rem] px-1.5 py-0.5 rounded-full bg-white text-indigo-700 border border-indigo-100 text-[10px] font-black" id="finalCardReviewCount">0</span>
+</button>
+<button class="inline-flex items-center justify-center gap-1.5 px-4 py-2.5 text-xs font-extrabold text-emerald-700 bg-emerald-50 hover:bg-emerald-100 rounded-xl border border-emerald-100 transition-all shadow-sm active:scale-[0.98]" id="finalCardCompletedOpenBtn" onclick="openFinalCardCompleted()" type="button">
+<span>학습완료</span>
+<span class="min-w-[1.35rem] px-1.5 py-0.5 rounded-full bg-white text-emerald-700 border border-emerald-100 text-[10px] font-black" id="finalCardCompletedCount">0</span>
+</button>
+<button class="hidden inline-flex items-center justify-center gap-1.5 px-4 py-2.5 text-xs font-extrabold text-slate-700 bg-white hover:bg-slate-50 rounded-xl border border-slate-200 transition-all shadow-sm active:scale-[0.98]" id="finalCardReviewBackBtn" onclick="returnToFinalCardFullDeck()" type="button">다시 카드로 돌아가기</button>
+<button class="hidden inline-flex items-center justify-center gap-1.5 px-4 py-2.5 text-xs font-extrabold text-indigo-700 bg-indigo-50 hover:bg-indigo-100 rounded-xl border border-indigo-100 transition-all shadow-sm active:scale-[0.98]" id="finalCardCompletedRestoreBtn" onclick="moveCurrentCompletedCardToReview()" type="button">다시 공부 목록으로 이동</button>
+<button class="hidden inline-flex items-center justify-center gap-1.5 px-4 py-2.5 text-xs font-extrabold text-rose-700 bg-rose-50 hover:bg-rose-100 rounded-xl border border-rose-100 transition-all shadow-sm active:scale-[0.98]" id="finalCardReviewClearBtn" onclick="clearFinalCardReviewList()" type="button">다시 공부 목록 비우기</button>
+<button class="hidden inline-flex items-center justify-center gap-1.5 px-4 py-2.5 text-xs font-extrabold text-rose-700 bg-rose-50 hover:bg-rose-100 rounded-xl border border-rose-100 transition-all shadow-sm active:scale-[0.98]" id="finalCardCompletedClearBtn" onclick="clearFinalCardCompletedList()" type="button">학습완료 목록 비우기</button>
+</div>
+<div class="hidden text-center text-xs font-bold px-3 py-2 rounded-xl border" id="finalCardReviewMessage"></div>
+</div>
 <!-- The Flashcard Wrapper (3D container with animations) -->
 <div class="w-full max-w-lg aspect-[4/3] sm:aspect-[1.5/1] perspective-1000 cursor-pointer group" id="flashcard" onclick="flipCard()">
 <!-- Inner flipper element -->
@@ -2154,6 +2182,16 @@
 <span class="flex items-center gap-1 justify-center">
 <kbd class="px-1.5 py-0.5 bg-slate-100 border border-slate-200 rounded text-slate-500 shadow-sm font-mono font-bold">↑</kbd> /
                             <kbd class="px-1.5 py-0.5 bg-slate-100 border border-slate-200 rounded text-slate-500 shadow-sm font-mono font-bold">W</kbd> 섞기
+                        </span>
+<span class="hidden sm:inline text-slate-300">•</span>
+<span class="flex items-center gap-1 justify-center">
+<kbd class="px-1.5 py-0.5 bg-rose-50 border border-rose-100 rounded text-rose-500 shadow-sm font-mono font-bold">Q</kbd> /
+                            <kbd class="px-1.5 py-0.5 bg-rose-50 border border-rose-100 rounded text-rose-500 shadow-sm font-mono font-bold">.</kbd> 다시 공부하기
+                        </span>
+<span class="hidden sm:inline text-slate-300">•</span>
+<span class="flex items-center gap-1 justify-center">
+<kbd class="px-1.5 py-0.5 bg-emerald-50 border border-emerald-100 rounded text-emerald-600 shadow-sm font-mono font-bold">E</kbd> /
+                            <kbd class="px-1.5 py-0.5 bg-emerald-50 border border-emerald-100 rounded text-emerald-600 shadow-sm font-mono font-bold">/</kbd> 알고있음!
                         </span>
 </div>
 </div>
@@ -14713,6 +14751,9 @@ EEl
 </div>
 <div class="update-log-body">
 <ul class="update-log-list">
+<li><strong>2026-07-07 21:45:00</strong> - 최종 카드 암기 학습완료 목록 및 단축키 기능 추가</li>
+<li><strong>2026-07-07 21:30:00</strong> - 최종 카드 암기 다시보기 저장소와 알고있음 연동 기능 보완</li>
+<li><strong>2026-07-07 21:15:00</strong> - 침해 공격 유형 카드 추가 및 최종 카드 암기·참고 섹션 재구성</li>
 <li><strong>2026-07-07 21:00:00</strong> - 최종 암기 문제 정답처리, 정답 다시보기 및 기록 안정성 보완</li>
 <!-- 형식: YYYY-MM-DD HH:MM:SS - 수정 내용 / 최신 항목을 맨 위에 추가 -->
 <li><strong>2026-07-07 20:45:00</strong> - 최종 암기 문제 버튼 위치 수정 및 누락 문제 보강</li>
@@ -15918,6 +15959,24 @@ EEl
                         "q": "시스템 관리자 권한을 탈취하고 악성 행위나 파일·프로세스를 은닉하는 프로그램은?",
                         "a": "루트킷",
                         "aEng": "Rootkit"
+            },
+            {
+                        "id": "c_39",
+                        "category": "웹 공격",
+                        "categoryEng": "Web Attack",
+                        "clue": "CSRF",
+                        "q": "인증된 사용자의 권한을 이용해 의도하지 않은 요청을 서버에 전송하게 만드는 웹 공격은?",
+                        "a": "CSRF",
+                        "aEng": "Cross-Site Request Forgery"
+            },
+            {
+                        "id": "c_40",
+                        "category": "시스템 공격",
+                        "categoryEng": "Memory Attack",
+                        "clue": "버퍼",
+                        "q": "메모리 버퍼의 크기를 초과하는 데이터를 입력해 인접 메모리를 덮어쓰고 시스템 오동작이나 권한 탈취를 유발하는 공격은?",
+                        "a": "버퍼 오버플로우",
+                        "aEng": "Buffer Overflow"
             }
 ];
 
@@ -17135,7 +17194,7 @@ EEl
             }
         ];
 
-        // 최종 카드 암기 107개 데이터셋 정의
+        // 카드 암기 참고용 107개 데이터셋 정의
         const finalDeck = [
             // [모듈: 결합도]
             { id: "final_1", category: "모듈: 결합도", q: "모듈 간 단순한 데이터(파라미터)만 주고받는 가장 바람직한 결합도는?", a: "자료 결합도", aEng: "Data Coupling", clue: "자" },
@@ -17290,13 +17349,38 @@ EEl
             { id: "final_106", category: "소프트웨어 공학: 기타", q: "원시 코드의 라인 수(LOC)를 기반으로 낙관치, 중간치, 비관치를 측정하여 예측치를 구하는 비용 산정 모델은?", a: "COCOMO", aEng: "Constructive Cost Model", clue: "C" },
             { id: "final_107", category: "소프트웨어 공학: 기타", q: "소프트웨어의 변경 사항을 체계적으로 관리하는 형상 관리의 4가지 주요 활동은?", a: "형상 식별, 형상 통제, 형상 감사, 형상 기록", aEng: "Configuration Management", clue: "형" }
         ];
+
+        // 플래시 카드 암기 섹션의 모든 원본 덱을 통합한 최종 카드 암기 덱
+        const finalFlashDeck = [
+            ...gofDeck,
+            ...cohesionDeck,
+            ...blackboxDeck,
+            ...interfaceDeck,
+            ...infoSecurityBasicDeck,
+            ...uiDeck,
+            ...integrityConstraintDeck,
+            ...attackDeck,
+            ...protocolDeck,
+            ...algoDeck,
+            ...testDeck,
+            ...infoSecurityDeck,
+            ...dbNetworkDeck,
+            ...flashEtcDeck
+        ].filter((card) => {
+            const text = `${card.q || ''} ${card.a || ''} ${card.aEng || ''}`;
+            return !/추가예정/.test(text);
+        });
         
 
         // Application state and shared constants
         const STORAGE_KEY = 'cs_flashcard_mastery_v4';
+        const FINAL_CARD_REVIEW_STORAGE_KEY = 'finalCardReviewList_v1';
+        const FINAL_CARD_COMPLETED_STORAGE_KEY = 'finalCardCompletedList_v1';
 
         const CONCEPT_MENU_KEYS = ['UML_DIAGRAM', 'TESTCOVERAGE', 'NORMALIZATION', 'DATAMODEL', 'BLACKBOX_CONCEPT', 'ROUTING', 'REL_DATA_LANG', 'DBDESIGN', 'NETTRANS', 'CONFIG_MGMT', 'TRANSACTION', 'DBKEYS', 'ETC_CONCEPT'];
-        const FLASHCARD_MENU_KEYS = ['GOF', 'COHESION', 'BLACKBOX', 'INTERFACE', 'INFO_SECURITY_BASIC', 'UI', 'INTEGRITY_CONSTRAINT', 'ATTACK', 'PROTOCOL', 'ALGO', 'TEST_CARD', 'INFO_SECURITY_MISC', 'DB_NETWORK', 'FLASH_ETC', 'FINAL_CARD', 'FINAL_SUMMARY', 'FINAL_QUESTIONS'];
+        const FLASHCARD_MENU_KEYS = ['GOF', 'COHESION', 'BLACKBOX', 'INTERFACE', 'INFO_SECURITY_BASIC', 'UI', 'INTEGRITY_CONSTRAINT', 'ATTACK', 'PROTOCOL', 'ALGO', 'TEST_CARD', 'INFO_SECURITY_MISC', 'DB_NETWORK', 'FLASH_ETC'];
+        const FINAL_MENU_KEYS = ['FINAL_CARD', 'FINAL_QUESTIONS'];
+        const REFERENCE_MENU_KEYS = ['FINAL_CARD_REF', 'FINAL_SUMMARY'];
         // [추가] 코딩 학습 메뉴 키
         const CODING_MENU_KEYS = ['CODE_PYTHON', 'CODE_JAVA', 'CODE_C', 'AI_QUESTIONS_HOME'];
 
@@ -17339,7 +17423,7 @@ EEl
         const CARD_ANIMATION_CLASSES = ['animate-slide-right', 'animate-slide-left', 'animate-slide-up'];
         const CARD_ANIMATION_BY_DIRECTION = { 1: 'animate-slide-right', '-1': 'animate-slide-left', 0: 'animate-slide-up' };
         // [추가] 목차 활성화 순서: 핵심개념학습 → 플래시 카드 암기 → 코딩
-        const MENU_KEYS = [...CONCEPT_MENU_KEYS, ...FLASHCARD_MENU_KEYS, ...CODING_MENU_KEYS];
+        const MENU_KEYS = [...CONCEPT_MENU_KEYS, ...FLASHCARD_MENU_KEYS, ...CODING_MENU_KEYS, ...FINAL_MENU_KEYS, ...REFERENCE_MENU_KEYS];
         const SUB_FILTER_ACTIVE_CLASSES = 'bg-white text-slate-800 shadow-sm';
         const SUB_FILTER_INACTIVE_CLASSES = 'text-slate-600 hover:text-slate-900';
         const CONCEPT_FILTER_BADGE_HTML = `
@@ -17372,7 +17456,8 @@ EEl
             INFO_SECURITY_MISC: infoSecurityDeck,
             DB_NETWORK: dbNetworkDeck,
             FLASH_ETC: flashEtcDeck,
-            FINAL_CARD: finalDeck
+            FINAL_CARD: finalFlashDeck,
+            FINAL_CARD_REF: finalDeck
         };
 
         const SUBJECT_CONFIG = {
@@ -17410,8 +17495,9 @@ EEl
             AI_QUESTIONS_HOME: { title: 'ai예상문제', subtitle: 'DIFFICULTY & ROUND SELECTOR', type: 'concept', screenId: 'aiQuestionHomeScreen' },
             AI_QUESTIONS_SET1: { title: 'AI 예상문제 1', subtitle: 'CODING PRACTICE SET 1', type: 'concept', screenId: 'aiQuestionSet1Screen' },
             AI_QUESTIONS_SET2: { title: 'AI 예상문제 2', subtitle: 'CODING PRACTICE SET 2', type: 'concept', screenId: 'aiQuestionSet2Screen' },
-            FINAL_CARD: { title: '최종 카드 암기', subtitle: 'FINAL CARD MASTER', type: 'card' },
-            FINAL_SUMMARY: { title: '최종암기요약', subtitle: 'FINAL BRIEF SUMMARY', type: 'summary' },
+            FINAL_CARD: { title: '최종 카드 암기', subtitle: 'ALL FLASHCARD MASTER', type: 'card' },
+            FINAL_CARD_REF: { title: '카드 암기 참고용', subtitle: 'REFERENCE CARD MASTER', type: 'card' },
+            FINAL_SUMMARY: { title: '카드 요약 참고용', subtitle: 'REFERENCE BRIEF SUMMARY', type: 'summary' },
             FINAL_QUESTIONS: { title: '최종 암기 문제', subtitle: 'FINAL MEMORY QUESTIONS', type: 'concept', screenId: 'finalQuestionsScreen' }
         };
 
@@ -17430,7 +17516,7 @@ EEl
             INFO_SECURITY_MISC: [FILTER_ALL, '인증/인가', '보안 솔루션', '네트워크 보안', '보안 모델', '데이터 보호', 'AAA'],
             DB_NETWORK: [FILTER_ALL, '데이터 처리', '데이터 검색', '조인', '네트워크', '객체지향 기본', '객체지향 특성', '객체지향 문법'],
             FLASH_ETC: [FILTER_ALL, '장애 복구', '개발 방법론', '데이터/표기 기술', '요구사항·보안', '웹 기본', '클라우드 서비스'],
-            FINAL_CARD: [
+            FINAL_CARD_REF: [
                 FILTER_ALL, '모듈: 결합도', '모듈: 응집도',
                 '디자인 패턴: 생성', '디자인 패턴: 구조', '디자인 패턴: 행위',
                 '소프트웨어 테스트: 기법', 'UML 다이어그램',
@@ -17585,6 +17671,16 @@ EEl
         let currentCardIndex = 0;
         let filteredCards = [];
         let isSidebarOpen = true;
+        let finalCardReviewMode = false;
+        let finalCardReviewLastIndex = 0;
+        let finalCardReviewEntries = [];
+        let finalCardCompletedEntries = [];
+        let finalCardReviewNoticeTimer = null;
+        let isFinalCardReviewMode = false;
+        let isFinalCardCompletedMode = false;
+        let finalCardReviewReturnState = { index: 0, subFilter: FILTER_ALL, shuffled: false };
+        let finalCardCompletedReturnState = { index: 0, subFilter: FILTER_ALL, shuffled: false };
+        let finalCardReviewMessageTimer = null;
 
         const categoryGroups = {
             conceptGroup: false,
@@ -17605,6 +17701,430 @@ EEl
 
         function getDeck(subject = currentSubject) {
             return DECK_BY_SUBJECT[subject] || [];
+        }
+
+        function normalizeFinalCardReviewText(value) {
+            return String(value || '').trim().replace(/\s+/g, ' ');
+        }
+
+        function finalCardReviewHash(value) {
+            let hash = 0;
+            const text = String(value || '');
+            for (let i = 0; i < text.length; i++) {
+                hash = ((hash << 5) - hash) + text.charCodeAt(i);
+                hash |= 0;
+            }
+            return Math.abs(hash).toString(36);
+        }
+
+        function getCardStableId(card) {
+            if (card && card.id) return String(card.id);
+            const seed = [card?.sourceSubject || currentSubject || 'card', card?.category, card?.q, card?.a].map(normalizeFinalCardReviewText).join('|');
+            return `generated_${finalCardReviewHash(seed)}`;
+        }
+
+        function getOriginalSubjectKeyForFinalCard(card) {
+            const cardId = getCardStableId(card);
+            for (const subjectKey of FLASHCARD_MENU_KEYS) {
+                const deck = DECK_BY_SUBJECT[subjectKey] || [];
+                if (deck.some((item) => getCardStableId(item) === cardId)) return subjectKey;
+            }
+            return card?.sourceSubject || 'FINAL_CARD';
+        }
+
+        function getFinalCardReviewPayload(card) {
+            const sourceSubject = getOriginalSubjectKeyForFinalCard(card);
+            const sourceTitle = SUBJECT_CONFIG[sourceSubject]?.title || '최종 카드 암기';
+            return {
+                id: getCardStableId(card),
+                q: card?.q || '',
+                a: card?.a || '',
+                aEng: card?.aEng || '',
+                category: card?.category || '',
+                clue: card?.clue || '',
+                sourceSubject,
+                sourceTitle,
+                savedAt: new Date().toISOString()
+            };
+        }
+
+        function normalizeFinalCardReviewItem(item) {
+            if (!item) return null;
+            if (typeof item === 'string') return { id: item };
+            if (typeof item !== 'object') return null;
+            const id = item.id ? String(item.id) : getCardStableId(item);
+            if (!id) return null;
+            return { ...item, id };
+        }
+
+        function getStoredFinalCardReviewList() {
+            try {
+                const parsed = JSON.parse(localStorage.getItem(FINAL_CARD_REVIEW_STORAGE_KEY) || '[]');
+                if (!Array.isArray(parsed)) return [];
+                const seen = new Set();
+                return parsed.map(normalizeFinalCardReviewItem).filter((item) => {
+                    if (!item || seen.has(item.id)) return false;
+                    seen.add(item.id);
+                    return true;
+                });
+            } catch (error) {
+                return [];
+            }
+        }
+
+        function setStoredFinalCardReviewList(items) {
+            try {
+                localStorage.setItem(FINAL_CARD_REVIEW_STORAGE_KEY, JSON.stringify(items || []));
+                return true;
+            } catch (error) {
+                return false;
+            }
+        }
+
+        function getStoredFinalCardCompletedList() {
+            try {
+                const parsed = JSON.parse(localStorage.getItem(FINAL_CARD_COMPLETED_STORAGE_KEY) || '[]');
+                if (!Array.isArray(parsed)) return [];
+                const seen = new Set();
+                return parsed.map(normalizeFinalCardReviewItem).filter((item) => {
+                    if (!item || seen.has(item.id)) return false;
+                    seen.add(item.id);
+                    return true;
+                });
+            } catch (error) {
+                return [];
+            }
+        }
+
+        function setStoredFinalCardCompletedList(items) {
+            try {
+                localStorage.setItem(FINAL_CARD_COMPLETED_STORAGE_KEY, JSON.stringify(items || []));
+                return true;
+            } catch (error) {
+                return false;
+            }
+        }
+
+        function getFinalCardCurrentDeckMap() {
+            return finalFlashDeck.reduce((acc, card) => {
+                acc[getCardStableId(card)] = card;
+                return acc;
+            }, {});
+        }
+
+        function hydrateFinalCardStoredDeck(stored) {
+            const currentMap = getFinalCardCurrentDeckMap();
+            return (stored || []).map((item) => {
+                const latest = currentMap[item.id];
+                if (latest) {
+                    const sourceSubject = item.sourceSubject || getOriginalSubjectKeyForFinalCard(latest);
+                    return {
+                        ...latest,
+                        id: item.id,
+                        sourceSubject,
+                        sourceTitle: item.sourceTitle || SUBJECT_CONFIG[sourceSubject]?.title || '최종 카드 암기'
+                    };
+                }
+                return item;
+            }).filter((card) => card && card.id && card.q && !/추가예정/.test(`${card.q || ''} ${card.a || ''} ${card.aEng || ''}`));
+        }
+
+        function getFinalCardReviewDeck() {
+            return hydrateFinalCardStoredDeck(getStoredFinalCardReviewList());
+        }
+
+        function getFinalCardCompletedDeck() {
+            return hydrateFinalCardStoredDeck(getStoredFinalCardCompletedList());
+        }
+
+        function showFinalCardReviewMessage(message, type = 'info') {
+            const el = $('finalCardReviewMessage');
+            if (!el) return;
+            if (finalCardReviewMessageTimer) clearTimeout(finalCardReviewMessageTimer);
+            el.textContent = message || '';
+            const classByType = {
+                success: 'border-emerald-200 bg-emerald-50 text-emerald-700',
+                error: 'border-rose-200 bg-rose-50 text-rose-700',
+                info: 'border-amber-200 bg-amber-50 text-amber-800'
+            };
+            el.className = `text-center text-xs font-bold px-3 py-2 rounded-xl border ${classByType[type] || classByType.info}`;
+            setHidden(el, !message);
+            if (message) finalCardReviewMessageTimer = setTimeout(() => setHidden(el, true), 2200);
+        }
+
+        function renderFinalCardReviewControls() {
+            const toolbar = $('finalCardReviewToolbar');
+            if (!toolbar) return;
+            const isFinalCard = currentSubject === 'FINAL_CARD';
+            setHidden(toolbar, !isFinalCard);
+            if (!isFinalCard) return;
+
+            const storedReviewList = getStoredFinalCardReviewList();
+            const storedCompletedList = getStoredFinalCardCompletedList();
+            finalCardReviewEntries = storedReviewList;
+            finalCardCompletedEntries = storedCompletedList;
+            const reviewCount = storedReviewList.length;
+            const completedCount = storedCompletedList.length;
+            const isCollectionMode = isFinalCardReviewMode || isFinalCardCompletedMode;
+
+            setText('finalCardReviewCount', reviewCount);
+            setText('finalCardCompletedCount', completedCount);
+            setHidden('finalCardReviewOpenBtn', isCollectionMode);
+            setHidden('finalCardCompletedOpenBtn', isCollectionMode);
+            setHidden('finalCardReviewBackBtn', !isCollectionMode);
+            setHidden('finalCardReviewClearBtn', !(isFinalCardReviewMode && reviewCount > 0));
+            setHidden('finalCardCompletedRestoreBtn', !(isFinalCardCompletedMode && filteredCards.length > 0));
+            setHidden('finalCardCompletedClearBtn', !(isFinalCardCompletedMode && completedCount > 0));
+
+            const summaryText = isFinalCardReviewMode
+                ? `다시 공부 목록 ${reviewCount}장의 카드 중 복습 중입니다.`
+                : isFinalCardCompletedMode
+                    ? `학습완료 목록 ${completedCount}장의 카드 중 확인 중입니다.`
+                    : `현재 대기열 총 ${filteredCards.length}장의 카드가 필터링되었습니다.`;
+            setText('filterSummaryText', summaryText);
+        }
+
+        function addFinalCardToReviewList(card) {
+            if (currentSubject !== 'FINAL_CARD' || !card) return false;
+            const payload = getFinalCardReviewPayload(card);
+            const stored = getStoredFinalCardReviewList();
+
+            if (stored.some((item) => item.id === payload.id)) {
+                showFinalCardReviewMessage('이미 다시 공부 목록에 저장된 카드입니다.', 'info');
+                renderFinalCardReviewControls();
+                return false;
+            }
+
+            const saved = setStoredFinalCardReviewList([...stored, payload]);
+            renderFinalCardReviewControls();
+            showFinalCardReviewMessage(saved ? '다시 공부 목록에 저장되었습니다.' : '저장소 저장에 실패했지만 카드 기능은 계속 사용할 수 있습니다.', saved ? 'success' : 'error');
+            return saved;
+        }
+
+        function removeFinalCardFromReviewList(card) {
+            const cardId = typeof card === 'string' ? card : getCardStableId(card);
+            const stored = getStoredFinalCardReviewList();
+            const next = stored.filter((item) => item.id !== cardId);
+            if (next.length === stored.length) return false;
+            setStoredFinalCardReviewList(next);
+            renderFinalCardReviewControls();
+            return true;
+        }
+
+        function addFinalCardToCompletedList(card, showMessage = false) {
+            if (currentSubject !== 'FINAL_CARD' || !card) return false;
+            const payload = getFinalCardReviewPayload(card);
+            const stored = getStoredFinalCardCompletedList();
+
+            if (stored.some((item) => item.id === payload.id)) {
+                if (showMessage) showFinalCardReviewMessage('이미 학습완료 목록에 저장된 카드입니다.', 'info');
+                renderFinalCardReviewControls();
+                return false;
+            }
+
+            const saved = setStoredFinalCardCompletedList([...stored, { ...payload, completedAt: new Date().toISOString() }]);
+            renderFinalCardReviewControls();
+            if (showMessage) showFinalCardReviewMessage(saved ? '학습완료 목록에 저장되었습니다.' : '저장소 저장에 실패했지만 카드 기능은 계속 사용할 수 있습니다.', saved ? 'success' : 'error');
+            return saved;
+        }
+
+        function removeFinalCardFromCompletedList(card) {
+            const cardId = typeof card === 'string' ? card : getCardStableId(card);
+            const stored = getStoredFinalCardCompletedList();
+            const next = stored.filter((item) => item.id !== cardId);
+            if (next.length === stored.length) return false;
+            setStoredFinalCardCompletedList(next);
+            renderFinalCardReviewControls();
+            return true;
+        }
+
+        function renderFinalCardReviewEmpty() {
+            setTextMap({
+                currentCardIndex: 0,
+                totalFilteredCards: 0,
+                frontCategory: '다시보기',
+                frontQuestion: '저장된 카드가 없습니다.',
+                backCategory: '다시보기',
+                backAnswerKo: '저장된 카드가 없습니다.',
+                backAnswerEng: ''
+            });
+            isFlipped = false;
+            renderCardFlipControls();
+            renderFinalCardReviewControls();
+        }
+
+        function renderFinalCardCompletedEmpty() {
+            setTextMap({
+                currentCardIndex: 0,
+                totalFilteredCards: 0,
+                frontCategory: '학습완료',
+                frontQuestion: '학습완료된 카드가 없습니다.',
+                backCategory: '학습완료',
+                backAnswerKo: '학습완료된 카드가 없습니다.',
+                backAnswerEng: ''
+            });
+            isFlipped = false;
+            renderCardFlipControls();
+            renderFinalCardReviewControls();
+        }
+
+        function openFinalCardReview() {
+            if (currentSubject !== 'FINAL_CARD') changeSubject('FINAL_CARD');
+
+            const reviewDeck = getFinalCardReviewDeck();
+            if (reviewDeck.length === 0) {
+                showFinalCardReviewMessage('저장된 카드가 없습니다.', 'info');
+                renderFinalCardReviewControls();
+                return;
+            }
+
+            finalCardReviewReturnState = {
+                index: currentCardIndex,
+                subFilter: currentSubFilter,
+                shuffled: isShuffled
+            };
+            isFinalCardReviewMode = true;
+            isFinalCardCompletedMode = false;
+            setSubjectHeader({ title: '최종 카드 암기 다시보기', subtitle: 'SAVED REVIEW CARDS' });
+            currentSubFilter = FILTER_ALL;
+            filteredCards = isShuffled ? reviewDeck.sort(() => Math.random() - 0.5) : reviewDeck;
+            currentCardIndex = 0;
+            resetCardFlipState(true);
+            updateCardDisplay();
+            adjustSubView();
+            renderFinalCardReviewControls();
+            triggerCardAnimation(0);
+        }
+
+        function openFinalCardCompleted() {
+            if (currentSubject !== 'FINAL_CARD') changeSubject('FINAL_CARD');
+
+            const completedDeck = getFinalCardCompletedDeck();
+            if (completedDeck.length === 0) {
+                showFinalCardReviewMessage('학습완료된 카드가 없습니다.', 'info');
+                renderFinalCardReviewControls();
+                return;
+            }
+
+            finalCardCompletedReturnState = {
+                index: currentCardIndex,
+                subFilter: currentSubFilter,
+                shuffled: isShuffled
+            };
+            isFinalCardReviewMode = false;
+            isFinalCardCompletedMode = true;
+            setSubjectHeader({ title: '최종 카드 암기 학습완료', subtitle: 'COMPLETED CARDS' });
+            currentSubFilter = FILTER_ALL;
+            filteredCards = isShuffled ? completedDeck.sort(() => Math.random() - 0.5) : completedDeck;
+            currentCardIndex = 0;
+            resetCardFlipState(true);
+            updateCardDisplay();
+            adjustSubView();
+            renderFinalCardReviewControls();
+            triggerCardAnimation(0);
+        }
+
+        function returnToFinalCardFullDeck() {
+            if (currentSubject !== 'FINAL_CARD') return;
+            const returnState = isFinalCardCompletedMode ? finalCardCompletedReturnState : finalCardReviewReturnState;
+            const targetIndex = returnState.index || 0;
+            isFinalCardReviewMode = false;
+            isFinalCardCompletedMode = false;
+            setSubjectHeader(getSubjectConfig('FINAL_CARD'));
+            currentSubFilter = returnState.subFilter || FILTER_ALL;
+            applyFilterAndReset(false);
+            if (filteredCards.length > 0) {
+                currentCardIndex = Math.min(Math.max(targetIndex, 0), filteredCards.length - 1);
+                updateCardDisplay();
+            }
+            adjustSubView();
+            renderFinalCardReviewControls();
+            triggerCardAnimation(0);
+        }
+
+        function clearFinalCardReviewList() {
+            const currentCount = getStoredFinalCardReviewList().length;
+            if (currentCount === 0) {
+                showFinalCardReviewMessage('저장된 카드가 없습니다.', 'info');
+                return;
+            }
+            if (!confirm('저장된 다시 공부 카드가 모두 삭제됩니다. 계속하시겠습니까?')) return;
+            setStoredFinalCardReviewList([]);
+            if (isFinalCardReviewMode) {
+                filteredCards = [];
+                currentCardIndex = 0;
+                renderFinalCardReviewEmpty();
+            }
+            renderFinalCardReviewControls();
+            showFinalCardReviewMessage('다시 공부 목록을 비웠습니다.', 'success');
+        }
+
+        function clearFinalCardCompletedList() {
+            const currentCount = getStoredFinalCardCompletedList().length;
+            if (currentCount === 0) {
+                showFinalCardReviewMessage('학습완료된 카드가 없습니다.', 'info');
+                return;
+            }
+            if (!confirm('학습완료 목록이 모두 삭제됩니다. 계속하시겠습니까?')) return;
+            setStoredFinalCardCompletedList([]);
+            if (isFinalCardCompletedMode) {
+                filteredCards = [];
+                currentCardIndex = 0;
+                renderFinalCardCompletedEmpty();
+            }
+            renderFinalCardReviewControls();
+            showFinalCardReviewMessage('학습완료 목록을 비웠습니다.', 'success');
+        }
+
+        function moveCurrentCompletedCardToReview() {
+            if (currentSubject !== 'FINAL_CARD' || !isFinalCardCompletedMode) return;
+            const current = filteredCards[currentCardIndex];
+            if (!current) {
+                showFinalCardReviewMessage('학습완료된 카드가 없습니다.', 'info');
+                renderFinalCardCompletedEmpty();
+                return;
+            }
+
+            const cardId = getCardStableId(current);
+            const reviewStored = getStoredFinalCardReviewList();
+            if (!reviewStored.some((item) => item.id === cardId)) {
+                setStoredFinalCardReviewList([...reviewStored, { ...getFinalCardReviewPayload(current), restoredAt: new Date().toISOString() }]);
+            }
+            removeFinalCardFromCompletedList(cardId);
+            masteryState[cardId] = 'again';
+            saveProgress();
+
+            filteredCards.splice(currentCardIndex, 1);
+            if (currentCardIndex >= filteredCards.length && filteredCards.length > 0) currentCardIndex = 0;
+            resetCardFlipState(false);
+
+            if (filteredCards.length === 0) {
+                renderFinalCardCompletedEmpty();
+                showFinalCardReviewMessage('다시 공부 목록으로 이동했습니다. 학습완료된 카드가 없습니다.', 'success');
+            } else {
+                updateCardDisplay();
+                showFinalCardReviewMessage('다시 공부 목록으로 이동했습니다.', 'success');
+                triggerCardAnimation(1);
+            }
+            renderFinalCardReviewControls();
+            adjustSubView();
+        }
+
+        function loadFinalCardReviewList() {
+            finalCardReviewEntries = getStoredFinalCardReviewList();
+            finalCardCompletedEntries = getStoredFinalCardCompletedList();
+        }
+
+        function updateFinalCardReviewToolbar() {
+            renderFinalCardReviewControls();
+        }
+
+        function isFinalCardReviewModeActive() {
+            return currentSubject === 'FINAL_CARD' && (isFinalCardReviewMode || isFinalCardCompletedMode);
+        }
+
+        function getStableCardId(card) {
+            return getCardStableId(card);
         }
 
         function getSubjectConfig(subject = currentSubject) {
@@ -17778,14 +18298,16 @@ EEl
 
         function setLearningControls(config = getSubjectConfig()) {
     const showCardArea = isCardView(config);
-    const hasCards = filteredCards.length > 0;
+    const reviewMode = isFinalCardReviewModeActive();
+    const hasDisplayableCardArea = filteredCards.length > 0 || reviewMode;
 
-    setHidden('studyContainer', !(showCardArea && hasCards));
-    setHidden('completedScreen', !(showCardArea && !hasCards));
-    setHidden('progressWidget', !showCardArea);
-    setHidden('shuffleControlBar', !showCardArea);
-    setHidden('resetLearningBtn', !showCardArea);
-    setHidden('cheatSheetWidget', !shouldShowCheatSheet(config));
+    setHidden('studyContainer', !(showCardArea && hasDisplayableCardArea));
+    setHidden('completedScreen', !(showCardArea && !hasDisplayableCardArea));
+    setHidden('progressWidget', !showCardArea || reviewMode);
+    setHidden('shuffleControlBar', !showCardArea || reviewMode);
+    setHidden('resetLearningBtn', !showCardArea || reviewMode);
+    setHidden('cheatSheetWidget', reviewMode || !shouldShowCheatSheet(config));
+    updateFinalCardReviewToolbar();
 }
 
         function showConfiguredScreen(config = getSubjectConfig()) {
@@ -17816,7 +18338,9 @@ function updateInterfaceBadge() {
         ALGO: algoDeck,
         TEST_CARD: testDeck,
         INFO_SECURITY_MISC: infoSecurityDeck,
-        DB_NETWORK: dbNetworkDeck
+        DB_NETWORK: dbNetworkDeck,
+        FINAL_CARD: finalFlashDeck,
+        FINAL_CARD_REF: finalDeck
     };
 
     Object.entries(badgeTargets).forEach(([key, deck]) => {
@@ -17827,6 +18351,9 @@ function updateInterfaceBadge() {
 
         function showStartScreen() {
     currentSubject = null;
+    finalCardReviewMode = false;
+    isFinalCardReviewMode = false;
+    isFinalCardCompletedMode = false;
     currentSubFilter = FILTER_ALL;
     filteredCards = [];
     isFlipped = false;
@@ -17852,6 +18379,7 @@ function updateInterfaceBadge() {
     setHidden('shuffleControlBar', true);
     setHidden('resetLearningBtn', true);
     setHidden('cheatSheetWidget', true);
+    updateFinalCardReviewToolbar();
     renderCardFlipControls();
 }
 
@@ -19758,6 +20286,8 @@ function updateInterfaceBadge() {
 
         window.addEventListener('DOMContentLoaded', () => {
             initMasteryState();
+            loadFinalCardReviewList();
+            updateFinalCardReviewToolbar();
             updateInterfaceBadge();
             // [추가] 코딩 학습 화면 렌더링
             renderCodingStudyScreens();
@@ -19805,7 +20335,8 @@ function updateInterfaceBadge() {
 
             Object.values(DECK_BY_SUBJECT).forEach((deck) => {
                 deck.forEach((card) => {
-                    if (!masteryState[card.id]) masteryState[card.id] = 'unseen';
+                    const cardId = getCardStableId(card);
+                    if (!masteryState[cardId]) masteryState[cardId] = 'unseen';
                 });
             });
 
@@ -19820,6 +20351,7 @@ function updateInterfaceBadge() {
             } catch (e) {}
 
             updateMetricsBoard();
+            updateFinalCardReviewToolbar();
         }
 
         function toggleCategoryGroup(groupId, arrowId) {
@@ -20340,9 +20872,12 @@ function updateInterfaceBadge() {
 
             setHidden('startScreen', true);
             currentSubject = subjectKey;
+            finalCardReviewMode = false;
             currentSubFilter = FILTER_ALL;
             isFlipped = false;
             isFinalFilterListExpanded = false;
+            isFinalCardReviewMode = false;
+            isFinalCardCompletedMode = false;
 
             setSubjectHeader(config);
             setActiveDirectory(subjectKey);
@@ -20353,6 +20888,7 @@ function updateInterfaceBadge() {
             if (subjectKey === 'ETC_CONCEPT') resetEtcConceptTabs();
             if (subjectKey === 'FINAL_QUESTIONS') initFinalQuiz();
             renderCardFlipControls();
+            renderFinalCardReviewControls();
         }
 
 
@@ -20399,8 +20935,13 @@ function updateInterfaceBadge() {
             const wrapper = $('subFilterWrapper');
             if (!wrapper) return;
 
-            setSubjectHeaderCompactMode(currentSubject === 'FINAL_CARD');
+            setSubjectHeaderCompactMode(currentSubject === 'FINAL_CARD_REF');
             resetSubFilterWrapperStyle(wrapper);
+
+            if (currentSubject === 'FINAL_CARD') {
+                wrapper.innerHTML = '';
+                return;
+            }
 
             if (currentSubject === 'FINAL_SUMMARY' || currentSubject === 'FINAL_QUESTIONS') {
                 wrapper.innerHTML = '';
@@ -20442,7 +20983,7 @@ function updateInterfaceBadge() {
                 `;
             }).join('');
 
-            if (currentSubject === 'FINAL_CARD') {
+            if (currentSubject === 'FINAL_CARD_REF') {
                 wrapper.innerHTML = `
                     <button onclick="toggleFinalFilterList()" class="px-3 py-1.5 rounded-lg text-xs font-extrabold transition-all bg-indigo-600 text-white shadow-sm">
                         <span id="finalFilterToggleText">▼ 목록 펼치기</span>
@@ -20465,6 +21006,7 @@ function updateInterfaceBadge() {
         }
 
         function toggleShuffle() {
+            if (isFinalCardReviewModeActive()) return;
             isShuffled = !isShuffled;
 
             const statusEl = $('shuffleStatus');
@@ -20486,22 +21028,33 @@ function updateInterfaceBadge() {
 
         function sortCardsById(deck) {
             return deck.sort((a, b) => {
-                const matchA = String(a.id || '').match(CARD_ID_NUMBER_PATTERN);
-                const matchB = String(b.id || '').match(CARD_ID_NUMBER_PATTERN);
+                const idA = getStableCardId(a);
+                const idB = getStableCardId(b);
+                const matchA = idA.match(CARD_ID_NUMBER_PATTERN);
+                const matchB = idB.match(CARD_ID_NUMBER_PATTERN);
                 const numA = matchA ? parseInt(matchA[0], 10) : NaN;
                 const numB = matchB ? parseInt(matchB[0], 10) : NaN;
 
                 if (!isNaN(numA) && !isNaN(numB)) return numA - numB;
-                return String(a.id).localeCompare(String(b.id));
+                return idA.localeCompare(idB);
             });
         }
 
 
         function getFilteredDeck() {
+            if (currentSubject === 'FINAL_CARD' && isFinalCardReviewMode) {
+                const reviewDeck = getFinalCardReviewDeck();
+                return isShuffled ? reviewDeck.sort(() => Math.random() - 0.5) : reviewDeck;
+            }
+            if (currentSubject === 'FINAL_CARD' && isFinalCardCompletedMode) {
+                const completedDeck = getFinalCardCompletedDeck();
+                return isShuffled ? completedDeck.sort(() => Math.random() - 0.5) : completedDeck;
+            }
+
             const sourceDeck = currentSubFilter === FILTER_ALL
                 ? [...getDeck()]
                 : getDeck().filter((item) => item.category === currentSubFilter);
-            const notMasteredDeck = sourceDeck.filter((item) => masteryState[item.id] !== 'master');
+            const notMasteredDeck = sourceDeck.filter((item) => masteryState[getCardStableId(item)] !== 'master');
             const activeDeck = notMasteredDeck.length > 0 ? notMasteredDeck : sourceDeck;
 
             return isShuffled ? activeDeck.sort(() => Math.random() - 0.5) : sortCardsById(activeDeck);
@@ -20528,7 +21081,8 @@ function updateInterfaceBadge() {
             const inner = $('cardInner');
             if (inner) inner.classList.toggle(CLASS_FLIPPED, isFlipped);
 
-            setHidden('evaluationControls', !isFlipped);
+            const hasActiveCard = filteredCards.length > 0;
+            setHidden('evaluationControls', !isFlipped || !hasActiveCard);
             setText('centerFlipBtn', isFlipped ? '앞면 보기' : '정답 확인');
         }
 
@@ -20543,12 +21097,19 @@ function updateInterfaceBadge() {
     setText('filterSummaryText', `현재 대기열 총 ${filteredCards.length}장의 카드가 필터링되었습니다.`);
 
     if (filteredCards.length === 0) {
-        renderCompletionMetrics();
+        if (currentSubject === 'FINAL_CARD' && isFinalCardReviewMode) {
+            renderFinalCardReviewEmpty();
+        } else if (currentSubject === 'FINAL_CARD' && isFinalCardCompletedMode) {
+            renderFinalCardCompletedEmpty();
+        } else {
+            renderCompletionMetrics();
+        }
     } else {
         updateCardDisplay();
     }
 
     updateMetricsBoard();
+    renderFinalCardReviewControls();
 
     if (syncLayout) {
         adjustSubView();
@@ -20556,7 +21117,12 @@ function updateInterfaceBadge() {
 }
 
         function updateCardDisplay() {
-            if (!isCardSubject() || filteredCards.length === 0) return;
+            if (!isCardSubject()) return;
+            if (filteredCards.length === 0) {
+                if (currentSubject === 'FINAL_CARD' && isFinalCardReviewMode) renderFinalCardReviewEmpty();
+                else if (currentSubject === 'FINAL_CARD' && isFinalCardCompletedMode) renderFinalCardCompletedEmpty();
+                return;
+            }
 
             const current = filteredCards[currentCardIndex];
             if (!current) return;
@@ -20564,12 +21130,13 @@ function updateInterfaceBadge() {
             setTextMap({
                 currentCardIndex: currentCardIndex + 1,
                 totalFilteredCards: filteredCards.length,
-                frontCategory: current.category,
-                frontQuestion: current.q,
-                backCategory: current.category,
-                backAnswerKo: current.a,
-                backAnswerEng: current.aEng
+                frontCategory: current.category || '구분',
+                frontQuestion: current.q || '',
+                backCategory: current.category || '정답',
+                backAnswerKo: current.a || '',
+                backAnswerEng: current.aEng || ''
             });
+            renderFinalCardReviewControls();
         }
 
 
@@ -20588,7 +21155,7 @@ function updateInterfaceBadge() {
 
             const sourceDeck = getDeck();
             const counts = sourceDeck.reduce((acc, item) => {
-                const state = masteryState[item.id] || 'unseen';
+                const state = masteryState[getCardStableId(item)] || 'unseen';
                 acc[state] = (acc[state] || 0) + 1;
                 return acc;
             }, { unseen: 0, again: 0, master: 0 });
@@ -20612,9 +21179,34 @@ function updateInterfaceBadge() {
             if (!current) return;
 
             const isEasy = type === 'easy';
-            masteryState[current.id] = isEasy ? 'master' : 'again';
+            const currentStableId = getCardStableId(current);
+
+            if (currentSubject === 'FINAL_CARD' && isFinalCardCompletedMode && type === 'again') {
+                sfx.playSkip();
+                moveCurrentCompletedCardToReview();
+                return;
+            }
+
+            if (currentSubject === 'FINAL_CARD' && isFinalCardCompletedMode && isEasy) {
+                masteryState[currentStableId] = 'master';
+                saveProgress();
+                sfx.playCorrect();
+                showFinalCardReviewMessage('이미 학습완료 목록에 저장된 카드입니다.', 'info');
+                resetCardFlipState(false);
+                return;
+            }
+
+            masteryState[currentStableId] = isEasy ? 'master' : 'again';
             isEasy ? sfx.playCorrect() : sfx.playSkip();
             saveProgress();
+
+            if (currentSubject === 'FINAL_CARD') {
+                if (type === 'again' && !isFinalCardReviewMode) addFinalCardToReviewList(current);
+                if (isEasy) {
+                    addFinalCardToCompletedList(current);
+                    removeFinalCardFromReviewList(currentStableId);
+                }
+            }
 
             if (isEasy) {
                 filteredCards.splice(currentCardIndex, 1);
@@ -20630,12 +21222,21 @@ function updateInterfaceBadge() {
 
             setTimeout(() => {
                 if (filteredCards.length === 0) {
-                    renderCompletionMetrics();
+                    if (currentSubject === 'FINAL_CARD' && isFinalCardReviewMode) {
+                        renderFinalCardReviewEmpty();
+                        showFinalCardReviewMessage('저장된 카드가 없습니다.', 'info');
+                    } else if (currentSubject === 'FINAL_CARD' && isFinalCardCompletedMode) {
+                        renderFinalCardCompletedEmpty();
+                        showFinalCardReviewMessage('학습완료된 카드가 없습니다.', 'info');
+                    } else {
+                        renderCompletionMetrics();
+                    }
                 } else {
                     updateCardDisplay();
                 }
 
                 adjustSubView();
+                renderFinalCardReviewControls();
                 triggerCardAnimation(1);
             }, CARD_EVALUATION_DELAY_MS);
         }
@@ -20644,7 +21245,7 @@ function updateInterfaceBadge() {
         function renderCompletionMetrics() {
             const sourceDeck = getDeck();
             const total = sourceDeck.length;
-            const mastered = sourceDeck.filter((item) => masteryState[item.id] === 'master').length;
+            const mastered = sourceDeck.filter((item) => masteryState[getCardStableId(item)] === 'master').length;
             const acc = total > 0 ? Math.round((mastered / total) * 100) : 0;
             const subjectTitle = SUBJECT_CONFIG[currentSubject]?.title || '현재 과목';
 
@@ -20657,7 +21258,7 @@ function updateInterfaceBadge() {
 
 
         function flipCard() {
-            if (!isCardSubject()) return;
+            if (!isCardSubject() || filteredCards.length === 0) return;
 
             isFlipped = !isFlipped;
             sfx.playFlip();
@@ -20681,7 +21282,7 @@ function updateInterfaceBadge() {
 
         function resetDeckProgress(deck) {
             deck.forEach((item) => {
-                masteryState[item.id] = 'unseen';
+                masteryState[getStableCardId(item)] = 'unseen';
             });
         }
 
@@ -20725,10 +21326,27 @@ function updateInterfaceBadge() {
         function setupKeyboardShortcuts() {
             window.addEventListener('keydown', (e) => {
                 const activeElement = document.activeElement;
-                if (activeElement && (['INPUT', 'TEXTAREA'].includes(activeElement.tagName) || activeElement.isContentEditable)) return;
+                if (activeElement && (['INPUT', 'TEXTAREA', 'SELECT'].includes(activeElement.tagName) || activeElement.isContentEditable)) return;
 
                 const key = e.key.toLowerCase();
                 const code = e.code;
+                const isFinalCard = currentSubject === 'FINAL_CARD' && isCardSubject() && filteredCards.length > 0;
+
+                if (isFinalCard && (key === 'q' || key === '.')) {
+                    e.preventDefault();
+                    if (isFinalCardCompletedMode) {
+                        moveCurrentCompletedCardToReview();
+                    } else {
+                        handleEvaluation('again');
+                    }
+                    return;
+                }
+
+                if (isFinalCard && (key === 'e' || key === '/')) {
+                    e.preventDefault();
+                    handleEvaluation('easy');
+                    return;
+                }
 
                 if (code === 'Space' || code === 'ArrowDown' || key === 's') {
                     e.preventDefault();
@@ -23057,7 +23675,7 @@ function updateInterfaceBadge() {
             FINAL_QUIZ_MANUAL_QUESTIONS.forEach(addQuestion);
             FINAL_QUIZ_SUPPLEMENTAL_QUESTIONS.forEach(addQuestion);
             Object.entries(DECK_BY_SUBJECT).forEach(([subjectKey, deck]) => {
-                if (['FINAL_CARD'].includes(subjectKey)) return;
+                if (['FINAL_CARD', 'FINAL_CARD_REF'].includes(subjectKey)) return;
                 (deck || []).forEach((card) => addQuestion(makeFinalQuizQuestionFromCard(subjectKey, card)));
             });
             finalQuizQuestions = merged.map((item, index) => ({ ...item, no: index + 1 }));
